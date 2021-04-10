@@ -1,27 +1,21 @@
-#include <Streaming.h> //串聯函式                              //有順序
-#include <MyTool.h> //""用於Arduino檔裡 <>用於libraries裡       //問題
-
-//#define 進Program Files(x86)>Arduino>hardware>arduino>avr>cores>arduino
-//#define COM_SPEED 9600
-//定義     傳輸速度   9600 (不是變數)(0byte)
-#define DEBUG//可像開關
-//int (變數)(4byte)
+//全域變數 不可重複變數
+int blinkDelayTime = 1000;//名字長好辨認
 
 void setup() {
-  pinMode(2,INPUT);
-  pinMode(3,INPUT);
-  Serial.begin(9600);
-  
-
+  //區域變數 可重複
+  pinMode(13,OUTPUT);
 }
 
 void loop() {
-#ifdef DEBUG //if define 
-  log("[INFO]",(String)"Pin 2: " + digitalRead(2) + ",Pin 3: " + digitalRead(3));
-     //[WARNING]
-     //[ERROR]
-  //log指紀錄   
-  //String將"Pin 2: " 轉型 +將字串 串聯起來
-#endif
-  delay(1000);
-}     
+  //區域變數 可重複
+  blink(13,2000,1000);
+  int blinkDelayTime = 100;
+}
+
+
+void blink(int pin,int blinkDelayTime,int lowBlinkDelayTime){//變數名稱隨便取，重點是要看得懂、不會搞混
+  digitalWrite(pin, HIGH);
+  delay(blinkDelayTime);
+  digitalWrite(pin, LOW);
+  delay(lowBlinkDelayTime);
+}
